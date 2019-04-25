@@ -1,0 +1,2 @@
+--with-mysql-lib=/usr/lib64
+--with-tcl=/usr/lib64

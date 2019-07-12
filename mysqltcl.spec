@@ -4,7 +4,7 @@
 #
 Name     : mysqltcl
 Version  : 3.052
-Release  : 1
+Release  : 2
 URL      : https://github.com/xdobry/mysqltcl/archive/3.052.tar.gz
 Source0  : https://github.com/xdobry/mysqltcl/archive/3.052.tar.gz
 Summary  : No detailed summary available
@@ -16,6 +16,7 @@ Requires: mysqltcl-man = %{version}-%{release}
 BuildRequires : mariadb-dev
 BuildRequires : tcl
 BuildRequires : tcl-dev
+BuildRequires : tcl-staticdev
 
 %description
 Tcl/Tk 8.0 interface to MySQL
@@ -57,22 +58,26 @@ man components for the mysqltcl package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1556156244
-export LDFLAGS="${LDFLAGS} -fno-lto"
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1562974890
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 %configure --disable-static --with-mysql-lib=/usr/lib64 \
 --with-tcl=/usr/lib64
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make TEST_VERBOSE=1 test
 
 %install
-export SOURCE_DATE_EPOCH=1556156244
+export SOURCE_DATE_EPOCH=1562974890
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/mysqltcl
 cp COPYING %{buildroot}/usr/share/package-licenses/mysqltcl/COPYING
